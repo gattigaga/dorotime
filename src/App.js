@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 
 import Timer from "./components/Timer";
 import Button from "./components/Button";
+import Stat from "./components/Stat";
 
 import audioAlarm from "./assets/alarm.mp3";
 
@@ -67,7 +68,7 @@ class App extends Component {
   }
 
   render() {
-    const { isTimerActive, isWorking } = this.state;
+    const { isTimerActive, isWorking, blocks } = this.state;
 
     return (
       <div
@@ -95,6 +96,11 @@ class App extends Component {
               }
             );
           }}
+        />
+        <Stat
+          total={blocks.length}
+          name="Completed Task"
+          style={{ position: "absolute", bottom: 32, left: 32 }}
         />
         <div className={css(styles.buttonContainer)}>
           {!isTimerActive && (
