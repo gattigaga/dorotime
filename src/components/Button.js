@@ -4,7 +4,7 @@ import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#c62b2b",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     color: "white",
     border: 0,
     fontSize: 24,
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     cursor: "pointer",
     outlineWidth: 0,
     ":hover": {
-      backgroundColor: "#d33939"
+      backgroundColor: "rgba(255, 255, 255, 0.3)"
     }
   }
 });

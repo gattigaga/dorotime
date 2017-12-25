@@ -5,8 +5,12 @@ import Timer from "./components/Timer";
 import Button from "./components/Button";
 
 const styles = StyleSheet.create({
-  main: {
+  mainWorking: {
     backgroundColor: "#b51e1e",
+    height: "100vh"
+  },
+  mainBreaking: {
+    backgroundColor: "#4caa19",
     height: "100vh"
   },
   buttonContainer: {
@@ -63,7 +67,9 @@ class App extends Component {
     const { isTimerActive, isWorking } = this.state;
 
     return (
-      <div className={css(styles.main)}>
+      <div
+        className={css(isWorking ? styles.mainWorking : styles.mainBreaking)}
+      >
         <Timer
           style={{ textAlign: "center", paddingTop: 128 }}
           active={isTimerActive}
