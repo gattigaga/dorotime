@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   time: {
     color: "white",
     fontSize: 160,
+    fontFamily: "Roboto",
     margin: 0
   }
 });

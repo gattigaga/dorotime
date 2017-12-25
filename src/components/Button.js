@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     color: "white",
     border: 0,
     fontSize: 24,
+    fontFamily: "Roboto",
+    textTransform: "uppercase",
     width: 160,
     paddingTop: 16,
     paddingBottom: 16,
