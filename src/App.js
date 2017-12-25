@@ -30,7 +30,7 @@ class App extends Component {
     this.state = {
       isTimerActive: false,
       isWorking: false,
-      blocks: 0
+      totalBlock: 0
     };
 
     this.alarm = new Audio(audioAlarm);
@@ -68,7 +68,7 @@ class App extends Component {
   }
 
   render() {
-    const { isTimerActive, isWorking, blocks } = this.state;
+    const { isTimerActive, isWorking, totalBlock } = this.state;
 
     return (
       <div
@@ -91,6 +91,9 @@ class App extends Component {
                 blocks: prevState.blocks + 1
               }),
               () => {
+                this.setState(prevState => ({
+                  totalBlock: prevState.totalBlock + 1
+                }));
                 this.notify("It's Breaking Time !");
                 this.alarm.play();
               }
@@ -98,7 +101,7 @@ class App extends Component {
           }}
         />
         <Stat
-          total={blocks.length}
+          total={totalBlock}
           name="Completed Task"
           style={{ position: "absolute", bottom: 32, left: 32 }}
         />
@@ -131,10 +134,11 @@ class App extends Component {
               <Button
                 caption="Skip Break"
                 onClick={() => {
-                  this.setState({
+                  this.setState(prevState => ({
                     isTimerActive: true,
-                    isWorking: true
-                  });
+                    isWorking: true,
+                    totalBlock: prevState.totalBlock + 1
+                  }));
                 }}
               />
             )}
