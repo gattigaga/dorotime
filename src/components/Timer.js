@@ -16,7 +16,7 @@ class Timer extends Component {
     super(props);
 
     this.state = {
-      seconds: 0
+      seconds: props.workDuration
     };
 
     this.start = this.start.bind(this);
@@ -35,16 +35,16 @@ class Timer extends Component {
       onBreakEnd
     } = nextProps;
 
-    // Stop and reset seconds to zero
     this.stop();
-    this.reset();
 
     if (active) {
       if (working) {
         // Start working in work duration
+        this.reset(workDuration);
         this.start(workDuration, onWorkEnd);
       } else {
         // Start break in break duration
+        this.reset(breakDuration);
         this.start(breakDuration, onBreakEnd);
       }
     }
@@ -65,12 +65,12 @@ class Timer extends Component {
     this.timer = setInterval(() => {
       this.setState(
         prevState => {
-          return { seconds: prevState.seconds + 1 };
+          return { seconds: prevState.seconds - 1 };
         },
         () => {
           const { seconds } = this.state;
 
-          if (seconds > duration) {
+          if (seconds < 0) {
             callback();
           }
         }
@@ -90,10 +90,11 @@ class Timer extends Component {
   /**
    * Reset the timer
    *
+   * @param {number} duration
    * @memberof Timer
    */
-  reset() {
-    this.setState({ seconds: 0 });
+  reset(duration) {
+    this.setState({ seconds: duration });
   }
 
   /**
