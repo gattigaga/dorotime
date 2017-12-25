@@ -25,6 +25,38 @@ class App extends Component {
       isWorking: false,
       blocks: 0
     };
+
+    this.notify = this.notify.bind(this);
+    this.requestPermission = this.requestPermission.bind(this);
+  }
+
+  componentDidMount() {
+    this.requestPermission();
+  }
+
+  /**
+   * Request notification permission
+   *
+   * @memberof App
+   */
+  requestPermission() {
+    Notification.requestPermission();
+
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+  }
+
+  /**
+   * Create notification
+   *
+   * @param {string} message
+   * @memberof App
+   */
+  notify(message) {
+    if (Notification.permission === "granted") {
+      const notification = new Notification(message);
+    }
   }
 
   render() {
@@ -37,13 +69,18 @@ class App extends Component {
           active={isTimerActive}
           working={isWorking}
           onWorkEnd={() => {
-            this.setState({ isWorking: false });
+            this.setState({ isWorking: false }, () =>
+              this.notify("It's Working Time !")
+            );
           }}
           onBreakEnd={() => {
-            this.setState(prevState => ({
-              isWorking: true,
-              blocks: prevState.blocks + 1
-            }));
+            this.setState(
+              prevState => ({
+                isWorking: true,
+                blocks: prevState.blocks + 1
+              }),
+              () => this.notify("It's Breaking Time !")
+            );
           }}
         />
         <div className={css(styles.buttonContainer)}>
