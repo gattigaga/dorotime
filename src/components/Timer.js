@@ -22,6 +22,7 @@ class Timer extends Component {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.reset = this.reset.bind(this);
+    this.getFormattedTime = this.getFormattedTime.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,10 +96,25 @@ class Timer extends Component {
     this.setState({ seconds: 0 });
   }
 
-  render() {
-    const { seconds } = this.state;
+  /**
+   * Get formatted seconds into time
+   *
+   * @returns {string}
+   * @memberof Timer
+   */
+  getFormattedTime() {
+    let { seconds } = this.state;
+    let minutes = parseInt(seconds / 60);
 
-    return <p className={css(styles.time)}>{seconds}</p>;
+    seconds %= 60;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    return `${minutes}:${seconds}`;
+  }
+
+  render() {
+    return <p className={css(styles.time)}>{this.getFormattedTime()}</p>;
   }
 }
 
