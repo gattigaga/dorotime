@@ -36,11 +36,11 @@ class Timer extends Component {
     } = nextProps;
 
     this.stop();
+    this.reset(workDuration);
 
     if (active) {
       if (working) {
         // Start working in work duration
-        this.reset(workDuration);
         this.start(workDuration, onWorkEnd);
       } else {
         // Start break in break duration
