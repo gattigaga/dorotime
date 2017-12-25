@@ -6,7 +6,7 @@ import { setInterval, clearInterval } from "timers";
 const styles = StyleSheet.create({
   time: {
     color: "white",
-    fontSize: 128,
+    fontSize: 160,
     margin: 0
   }
 });
@@ -114,11 +114,18 @@ class Timer extends Component {
   }
 
   render() {
-    return <p className={css(styles.time)}>{this.getFormattedTime()}</p>;
+    const { style } = this.props;
+
+    return (
+      <p className={css(styles.time)} style={style}>
+        {this.getFormattedTime()}
+      </p>
+    );
   }
 }
 
 Timer.propTypes = {
+  style: PropTypes.object,
   active: PropTypes.bool,
   working: PropTypes.bool,
   workDuration: PropTypes.number,

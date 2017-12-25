@@ -20,15 +20,16 @@ const styles = StyleSheet.create({
   }
 });
 
-function Button({ caption, onClick }) {
+function Button({ style, caption, onClick }) {
   return (
-    <button className={css(styles.button)} onClick={onClick}>
+    <button className={css(styles.button)} style={style} onClick={onClick}>
       {caption}
     </button>
   );
 }
 
 Button.propTypes = {
+  style: PropTypes.object,
   caption: PropTypes.string.isRequired,
   onClick: PropTypes.func
 };

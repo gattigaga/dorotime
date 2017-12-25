@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: "#b51e1e",
     height: "100vh"
+  },
+  buttonContainer: {
+    width: 160,
+    margin: "auto",
+    marginTop: 64
   }
 });
 
@@ -28,6 +33,7 @@ class App extends Component {
     return (
       <div className={css(styles.main)}>
         <Timer
+          style={{ textAlign: "center", paddingTop: 128 }}
           active={isTimerActive}
           working={isWorking}
           onWorkEnd={() => {
@@ -40,33 +46,10 @@ class App extends Component {
             }));
           }}
         />
-        {!isTimerActive && (
-          <Button
-            caption="Start"
-            onClick={() => {
-              this.setState({
-                isTimerActive: true,
-                isWorking: true
-              });
-            }}
-          />
-        )}
-        {isTimerActive &&
-          isWorking && (
+        <div className={css(styles.buttonContainer)}>
+          {!isTimerActive && (
             <Button
-              caption="Stop"
-              onClick={() => {
-                this.setState({
-                  isTimerActive: false,
-                  isWorking: false
-                });
-              }}
-            />
-          )}
-        {isTimerActive &&
-          !isWorking && (
-            <Button
-              caption="Skip Break"
+              caption="Start"
               onClick={() => {
                 this.setState({
                   isTimerActive: true,
@@ -75,6 +58,31 @@ class App extends Component {
               }}
             />
           )}
+          {isTimerActive &&
+            isWorking && (
+              <Button
+                caption="Stop"
+                onClick={() => {
+                  this.setState({
+                    isTimerActive: false,
+                    isWorking: false
+                  });
+                }}
+              />
+            )}
+          {isTimerActive &&
+            !isWorking && (
+              <Button
+                caption="Skip Break"
+                onClick={() => {
+                  this.setState({
+                    isTimerActive: true,
+                    isWorking: true
+                  });
+                }}
+              />
+            )}
+        </div>
       </div>
     );
   }
