@@ -4,6 +4,8 @@ import { StyleSheet, css } from "aphrodite";
 import Timer from "./components/Timer";
 import Button from "./components/Button";
 
+import audioAlarm from "./assets/alarm.mp3";
+
 const styles = StyleSheet.create({
   mainWorking: {
     backgroundColor: "#b51e1e",
@@ -30,6 +32,7 @@ class App extends Component {
       blocks: 0
     };
 
+    this.alarm = new Audio(audioAlarm);
     this.notify = this.notify.bind(this);
     this.requestPermission = this.requestPermission.bind(this);
   }
@@ -75,9 +78,10 @@ class App extends Component {
           active={isTimerActive}
           working={isWorking}
           onWorkEnd={() => {
-            this.setState({ isWorking: false }, () =>
-              this.notify("It's Working Time !")
-            );
+            this.setState({ isWorking: false }, () => {
+              this.notify("It's Working Time !");
+              this.alarm.play();
+            });
           }}
           onBreakEnd={() => {
             this.setState(
@@ -85,7 +89,10 @@ class App extends Component {
                 isWorking: true,
                 blocks: prevState.blocks + 1
               }),
-              () => this.notify("It's Breaking Time !")
+              () => {
+                this.notify("It's Breaking Time !");
+                this.alarm.play();
+              }
             );
           }}
         />
