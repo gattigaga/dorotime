@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
     width: 160,
     margin: "auto",
     marginTop: 64
+  },
+  apply: {
+    width: 96,
+    fontSize: 14,
+    padding: 8
   }
 });
 
@@ -39,8 +44,10 @@ class App extends Component {
       isTimerActive: false,
       isWorking: false,
       totalBlock: 0,
-      workingTime: 0,
-      breakingTime: 0
+      workingTimeConfig: 10,
+      breakingTimeConfig: 10,
+      workingTime: 10,
+      breakingTime: 10
     };
 
     this.alarm = new Audio(audioAlarm);
@@ -82,6 +89,8 @@ class App extends Component {
       isTimerActive,
       isWorking,
       totalBlock,
+      workingTimeConfig,
+      breakingTimeConfig,
       workingTime,
       breakingTime
     } = this.state;
@@ -93,16 +102,32 @@ class App extends Component {
         <SideBar>
           <TextBox
             label="Working Time"
-            value={workingTime}
-            onChange={e => this.setState({ workingTime: e.target.value })}
+            value={workingTimeConfig}
+            onChange={e => this.setState({ workingTimeConfig: e.target.value })}
           />
           <TextBox
             label="Breaking Time"
-            value={breakingTime}
-            onChange={e => this.setState({ breakingTime: e.target.value })}
+            value={breakingTimeConfig}
+            onChange={e =>
+              this.setState({ breakingTimeConfig: e.target.value })
+            }
+          />
+          <Button
+            caption="Apply"
+            style={styles.apply}
+            onClick={() => {
+              this.setState({
+                workingTime: workingTimeConfig,
+                breakingTime: breakingTimeConfig,
+                isTimerActive: false,
+                isWorking: false
+              });
+            }}
           />
         </SideBar>
         <Timer
+          workDuration={workingTime}
+          breakDuration={breakingTime}
           style={{ textAlign: "center", paddingTop: 128 }}
           active={isTimerActive}
           working={isWorking}

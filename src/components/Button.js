@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     border: 0,
     fontSize: 24,
     fontFamily: "Roboto",
-    textTransform: "uppercase",
     width: 160,
     paddingTop: 16,
     paddingBottom: 16,
@@ -24,14 +23,14 @@ const styles = StyleSheet.create({
 
 function Button({ style, caption, onClick }) {
   return (
-    <button className={css(styles.button)} style={style} onClick={onClick}>
+    <button className={css(styles.button, style)} onClick={onClick}>
       {caption}
     </button>
   );
 }
 
 Button.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   caption: PropTypes.string.isRequired,
   onClick: PropTypes.func
 };
