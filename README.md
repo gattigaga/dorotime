@@ -7,6 +7,10 @@ Dorotime is a simple pomodoro timer created with [React](https://reactjs.org/). 
 * Skip Break Time
 * Set Working Time and Break Time
 
+![Dorotime Idle](./assets/dorotime-1.png)
+
+![Dorotime Working](./assets/dorotime-2.png)
+
 ### Running
 
 To run this project, just run this command in your Terminal :
