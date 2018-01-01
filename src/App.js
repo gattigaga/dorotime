@@ -4,17 +4,25 @@ import { StyleSheet, css } from "aphrodite";
 import Timer from "./components/Timer";
 import Button from "./components/Button";
 import Stat from "./components/Stat";
+import SideBar from "./components/SideBar";
+import TextBox from "./components/TextBox";
 
 import audioAlarm from "./assets/alarm.mp3";
 
 const styles = StyleSheet.create({
   mainWorking: {
     backgroundColor: "#b51e1e",
-    height: "100vh"
+    width: "100vw",
+    height: "100vh",
+    overflow: "hidden",
+    position: "relative"
   },
   mainBreaking: {
     backgroundColor: "#4caa19",
-    height: "100vh"
+    width: "100vw",
+    height: "100vh",
+    overflow: "hidden",
+    position: "relative"
   },
   buttonContainer: {
     width: 160,
@@ -30,7 +38,9 @@ class App extends Component {
     this.state = {
       isTimerActive: false,
       isWorking: false,
-      totalBlock: 0
+      totalBlock: 0,
+      workingTime: 0,
+      breakingTime: 0
     };
 
     this.alarm = new Audio(audioAlarm);
@@ -68,12 +78,30 @@ class App extends Component {
   }
 
   render() {
-    const { isTimerActive, isWorking, totalBlock } = this.state;
+    const {
+      isTimerActive,
+      isWorking,
+      totalBlock,
+      workingTime,
+      breakingTime
+    } = this.state;
 
     return (
       <div
         className={css(isWorking ? styles.mainWorking : styles.mainBreaking)}
       >
+        <SideBar>
+          <TextBox
+            label="Working Time"
+            value={workingTime}
+            onChange={e => this.setState({ workingTime: e.target.value })}
+          />
+          <TextBox
+            label="Breaking Time"
+            value={breakingTime}
+            onChange={e => this.setState({ breakingTime: e.target.value })}
+          />
+        </SideBar>
         <Timer
           style={{ textAlign: "center", paddingTop: 128 }}
           active={isTimerActive}
